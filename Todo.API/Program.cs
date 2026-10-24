@@ -18,23 +18,28 @@ namespace Todo.API
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
-                    {
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt:Secret").Value)),
-                        ValidIssuer = builder.Configuration.GetSection("Jwt:Issuer").Value,
-                        ValidAudience = builder.Configuration.GetSection("Jwt:Audience").Value,
-                        ValidateAudience = true,
-                        ValidateIssuer = true,
-                        ClockSkew = TimeSpan.Zero
-                    };
-                });
+            builder.Services.AddLogging(options =>
+            {
+                options.AddSeq();
+            });
 
             builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddHealthChecks();
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                {
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt:Secret").Value)),
+                    ValidIssuer = builder.Configuration.GetSection("Jwt:Issuer").Value,
+                    ValidAudience = builder.Configuration.GetSection("Jwt:Audience").Value,
+                    ValidateAudience = true,
+                    ValidateIssuer = true,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
 
             builder.Services.AddInfrastructure(builder.Configuration);
             builder.Services.AddApplication();

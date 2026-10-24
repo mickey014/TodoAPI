@@ -13,16 +13,21 @@ namespace Todo.API.Controllers
     public class TodoController : ControllerBase
     {
         private readonly ITodoService _todoService;
+        private readonly ILogger<TodoController> logger;
 
         public TodoController(
-            ITodoService todoService
+            ITodoService todoService,
+            ILogger<TodoController> logger
         )
         {
             this._todoService = todoService;
+            this.logger = logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get() {
+            logger.LogInformation($"Executing GET method inside a TodoController Date:{DateTime.Now}");
+
             var result = await _todoService.GetItems();
 
             if (result.IsFailure)
