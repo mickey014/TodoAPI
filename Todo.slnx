@@ -1,7 +1,11 @@
 <Solution>
   <Folder Name="/src/" />
-  <Folder Name="/src/Application/" />
-  <Folder Name="/src/Domain/" />
+  <Folder Name="/src/Application/">
+    <Project Path="Todo.Application/Todo.Application.csproj" Id="a0a9c17b-01af-4476-8216-f7f8560b38d9" />
+  </Folder>
+  <Folder Name="/src/Domain/">
+    <Project Path="Todo.Domain/Todo.Domain.csproj" Id="0bf9205c-a907-4e01-ab94-e1527f1af57d" />
+  </Folder>
   <Folder Name="/src/Infrastructure/">
     <Project Path="Todo.Infrastructure/Todo.Infrastructure.csproj" Id="d4cf4949-ce56-441d-942c-910d70fb3ec9" />
   </Folder>
